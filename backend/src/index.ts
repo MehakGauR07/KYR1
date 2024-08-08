@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
 // Define routes
-app.get('/api/options/:category', async (req: Request, res: Response) => {
+app.get('/api/options/case1/:category', async (req: Request, res: Response) => {
     try {
       const category = req.params.category;
       const case2Data = await case2Model.findOne({ Category: category });

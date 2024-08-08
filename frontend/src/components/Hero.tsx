@@ -5,7 +5,7 @@ const Hero = () => {
   return (
     <div className="relative shadow-md rounded-lg p-8 mb-12">
       <div
-        className="absolute inset-0 bg-cover bg-top"
+        className="absolute inset-0 bg-cover bg-top md:bg-center"
         style={{ backgroundImage: `url(${India})` }}
       ></div>
       <div className="relative z-10 flex flex-col lg:flex-row items-center justify-center md:pl-20">

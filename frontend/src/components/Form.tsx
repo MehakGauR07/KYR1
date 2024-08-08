@@ -23,13 +23,19 @@ const Form: React.FC = () => {
 
   const fetchOptions = async (category: string) => {
     try {
-      const response = await axios.get(`http://localhost:7000/api/options/${category}`);
+      const response = await axios.get(`http://localhost:7000/api/options/case1/${category}`);
       setOptions(response.data);
     } catch (error) {
       console.error('Error fetching options:', error);
     }
   };
+  const className1 = "px-4 py-2 border border-black text-[#d42755] font-semibold rounded-lg shadow-md hover:bg-[#F7D8E0] transition duration-300";
+  const className2 = "px-4 py-2 bg-[#d42755] text-white font-semibold rounded-lg shadow-md hover:bg-[#b51d48] transition duration-300";
 
+  const getClassName = (index: number) => {
+    const pattern = [className2, className1, className1, className2, className2, className1];
+    return pattern[(index - 1) % pattern.length];
+  };
   const handleAnswer = (question: string, answer: string) => {
     setAnswers({
       ...answers,
@@ -106,7 +112,7 @@ const Form: React.FC = () => {
                 <button
                   key={option.index}
                   onClick={() => handleAnswer('question2', option.value)}
-                  className="px-4 py-2 border border-black text-[#d42755] font-semibold rounded-lg shadow-md hover:bg-[#F7D8E0] transition duration-300"
+                  className={getClassName(option.index)}
                 >
                   {option.value}
                 </button>
