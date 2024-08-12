@@ -27,7 +27,7 @@ useEffect(() => {
 
   const fetchOptions = async (category: string) => {
     try {
-      const response = await axios.get(`http://localhost:7000/api/options/case1/${category}`);
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND}/api/options/case1/${category}`);
       setOptions(response.data);
     } catch (error) {
       console.error('Error fetching options:', error);
@@ -36,7 +36,7 @@ useEffect(() => {
 
   const fetchCase3Options = async (article: string) => {
     try {
-      const response = await axios.get(`http://localhost:7000/api/options/case2/${article}`);
+      const response = await axios.get(`${import.meta.env.VITE_BACKEND}/api/options/case2/${article}`);
       setOptions(response.data.options || []);  // Adjust this line if your API returns a different structure
     } catch (error) {
       console.error('Error fetching options:', error);
