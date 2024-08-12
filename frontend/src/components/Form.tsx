@@ -8,6 +8,7 @@ interface Answers {
 interface Option {
   value: string;
   index: number;
+  answer: string;
 }
 
 const Form: React.FC = () => {
