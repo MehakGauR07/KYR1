@@ -11,6 +11,11 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+app.use(cors({
+  origin: 'https://kyr-frontend.vercel.app', // Replace with your frontend URL
+  methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+}));
 app.use(bodyParser.json());
 
 // Define routes
