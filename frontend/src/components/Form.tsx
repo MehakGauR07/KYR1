@@ -15,11 +15,15 @@ const Form: React.FC = () => {
   const [answers, setAnswers] = useState<Answers>({});
   const [options, setOptions] = useState<Option[]>([]);
   
-  useEffect(() => {
-    if (step === 2) {
-      fetchOptions(answers.question1);
-    }
-  }, [step, answers]);
+useEffect(() => {
+  if (step === 2) {
+    fetchOptions(answers.question1);
+  }
+  if (step === 3) {
+    fetchCase3Options(answers.question2);
+  }
+}, [step, answers]);
+
 
   const fetchOptions = async (category: string) => {
     try {
@@ -29,6 +33,16 @@ const Form: React.FC = () => {
       console.error('Error fetching options:', error);
     }
   };
+
+  const fetchCase3Options = async (article: string) => {
+    try {
+      const response = await axios.get(`http://localhost:7000/api/options/case2/${article}`);
+      setOptions(response.data.options || []);  // Adjust this line if your API returns a different structure
+    } catch (error) {
+      console.error('Error fetching options:', error);
+    }
+  };
+
   const className1 = "px-4 py-2 border border-black text-[#d42755] font-semibold rounded-lg shadow-md hover:bg-[#F7D8E0] transition duration-300";
   const className2 = "px-4 py-2 bg-[#d42755] text-white font-semibold rounded-lg shadow-md hover:bg-[#b51d48] transition duration-300";
 
@@ -36,6 +50,7 @@ const Form: React.FC = () => {
     const pattern = [className2, className1, className1, className2, className2, className1];
     return pattern[(index - 1) % pattern.length];
   };
+
   const handleAnswer = (question: string, answer: string) => {
     setAnswers({
       ...answers,
@@ -53,7 +68,7 @@ const Form: React.FC = () => {
       case 1:
         return (
           <>
-            <label className="block text-lg font-medium text-gray-700">
+            <label className="block text-2xl font-semibold text-gray-900 mb-6">
               The Six Fundamental Rights of the Indian Constitution:
             </label>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -99,7 +114,7 @@ const Form: React.FC = () => {
       case 2:
         return (
           <>
-            <label className="block text-lg font-medium text-gray-700">
+            <label className="block text-2xl font-semibold text-gray-900 mb-6">
               What do you want to know about {answers.question1 === 'equality' ? 'Right to Equality' : 
               answers.question1 === 'freedom' ? 'Right to Freedom' : 
               answers.question1 === 'exploitation' ? 'Right against Exploitation' : 
@@ -111,7 +126,7 @@ const Form: React.FC = () => {
               {options.map((option) => (
                 <button
                   key={option.index}
-                  onClick={() => handleAnswer('question2', option.value)}
+                  onClick={() => handleAnswer('question2', option.answer)}
                   className={getClassName(option.index)}
                 >
                   {option.value}
@@ -123,16 +138,16 @@ const Form: React.FC = () => {
       case 3:
         return (
           <>
-            <label htmlFor="question8" className="block text-lg font-medium text-gray-700">
-              Thank you for completing the questions! Please provide any additional comments.
+            <label className="block text-2xl font-semibold text-gray-900 mb-6">
+              Here's what you need to know to know about Article {answers.question2}:
             </label>
-            <textarea
-              id="question8"
-              name="question8"
-              value={answers.question8 || ''}
-              onChange={(e) => setAnswers({ ...answers, question8: e.target.value })}
-              className="mt-1 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
-            />
+            <ul className="list-disc pl-6">
+              {options.map((option) => (
+                <li key={option.index} className="text-lg text-gray-800 mb-2">
+                  {option.value}
+                </li>
+              ))}
+            </ul>
           </>
         );
       default:
@@ -143,7 +158,6 @@ const Form: React.FC = () => {
   return (
     <div className="container mx-auto px-4">
       <div className="bg-white shadow-md rounded-lg p-8">
-        <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">What do you want to know about?</h2>
         {renderQuestion()}
         <div className="mt-4 flex justify-between">
           {step > 1 && (
@@ -162,7 +176,6 @@ const Form: React.FC = () => {
               Next
             </button>
           )}
-          
         </div>
       </div>
     </div>

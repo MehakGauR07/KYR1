@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 
 const optionSchema = new mongoose.Schema({
   value: { type: String, required: true },
+  answer: {type: String, required: true},
   index : { type: Number, required: true }
 });
 

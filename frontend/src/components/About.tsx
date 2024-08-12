@@ -22,7 +22,7 @@ const About = () => {
         <p className="text-lg text-gray-700 mb-4">
           We are committed to providing accurate, up-to-date information and resources to help you understand and exercise your rights. Whether you’re facing a legal issue, a workplace dilemma, or simply want to be informed, KYR is here to support you.
         </p>
-        <a href="#" className="inline-block px-6 py-3 mb-4 mt-5 bg-[#d42755] text-2xl text-white font-semibold rounded-lg shadow-md hover:bg-[#b51d48] transition duration-300">
+        <a href="/get-started" className="inline-block px-6 py-3 mb-4 mt-5 bg-[#d42755] text-2xl text-white font-semibold rounded-lg shadow-md hover:bg-[#b51d48] transition duration-300">
           Get Started
         </a>
         <p className="text-lg text-gray-700">

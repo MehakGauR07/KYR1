@@ -4,12 +4,14 @@ import "dotenv/config";
 import mongoose from "mongoose";
 import { case2Model } from '../models/case2';  // Import your Mongoose model
 import { case2 } from '../data/case2';  // Import your case2 data
-
+import { case3Model } from '../models/case3';
+import { case3 } from '../data/case3';
+import bodyParser from 'body-parser';
 const app = express();
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+app.use(bodyParser.json());
 
 // Define routes
 app.get('/api/options/case1/:category', async (req: Request, res: Response) => {
@@ -21,7 +23,22 @@ app.get('/api/options/case1/:category', async (req: Request, res: Response) => {
       res.status(500).json({ error: 'Failed to fetch data' });
     }
   });
+  app.get('/api/options/case2/:article', async (req: Request, res: Response) => {
+    const article = req.params.article;
+    try {
+        // Find the corresponding data in case3 based on the answer
+        const case3Data = await case3Model.findOne({ Category: article });
 
+        if (!case3Data) {
+            return res.status(404).json({ message: 'Data not found in case3' });
+        }
+
+        return res.status(200).json(case3Data);
+    } catch (error) {
+        return res.status(500).json({ error: 'Failed to fetch data from case3' });
+    }
+});
+    
 // Connect to MongoDB and start the server
 mongoose.connect(process.env.MONGO_URI as string)
   .then(async () => {
@@ -29,6 +46,7 @@ mongoose.connect(process.env.MONGO_URI as string)
     //   await mongoose.connection.db.dropDatabase(); ---- doesnt work
 
       // await case2Model.insertMany(case2);  
+      // await case3Model.insertMany(case3);  
       // console.log("Data inserted successfully");
     } catch (error) {
       console.error("Error inserting data:", error);
