@@ -7,15 +7,11 @@ import { case2 } from '../data/case2';  // Import your case2 data
 import { case3Model } from '../models/case3';
 import { case3 } from '../data/case3';
 import bodyParser from 'body-parser';
+const axios = require('axios');
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
-app.use(cors({
-  origin: 'https://kyr-frontend.vercel.app', // Replace with your frontend URL
-  methods: ['GET', 'POST'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-}));
+app.use(cors( { origin: '*' }));
 app.use(bodyParser.json());
 
 // Define routes
@@ -43,7 +39,19 @@ app.get('/api/options/case1/:category', async (req: Request, res: Response) => {
         return res.status(500).json({ error: 'Failed to fetch data from case3' });
     }
 });
-    
+
+app.post('/chat', async (req, res) => {
+  try {
+      const response = await axios.post('http://localhost:5005/webhooks/rest/webhook', {
+          sender: 'user',
+          message: req.body.message
+      });
+      res.json(response.data);
+  } catch (error) {
+      res.status(500).send(error);
+  }
+});
+
 // Connect to MongoDB and start the server
 mongoose.connect(process.env.MONGO_URI as string)
   .then(async () => {

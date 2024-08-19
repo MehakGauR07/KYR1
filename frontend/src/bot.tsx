@@ -1,0 +1,67 @@
+import { useState, useRef, useEffect } from 'react';
+import sendMessageToBot from './apicall'; // Import the function
+
+const Chat = () => {
+  const [message, setMessage] = useState('');
+  const [responses, setResponses] = useState<{ text: string; sender: string }[]>([]);
+  const endOfMessagesRef = useRef<HTMLDivElement>(null); // Ref for the end of messages
+
+  const handleSend = async () => {
+    try {
+      const response = await sendMessageToBot(message);
+      setResponses([...responses, { text: message, sender: 'user' }, ...response]);
+      setMessage('');
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter' && message.trim()) {
+      handleSend();
+    }
+  };
+
+  // Scroll to the bottom whenever responses change
+  useEffect(() => {
+    endOfMessagesRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [responses]);
+
+  return (
+    <div className="container mx-auto px-4 py-8">
+      <div className="bg-white shadow-md rounded-lg p-8 h-[500px] flex flex-col">
+        <div className="flex-1 overflow-y-auto p-4 bg-gray-100 border border-gray-300 rounded-lg">
+          <div className="space-y-4">
+            {responses.map((res, index) => (
+              <div
+                key={index}
+                className={`p-3 rounded-lg ${res.sender === 'user' ? 'bg-blue-100 text-blue-800 self-end' : 'bg-gray-100 text-gray-800 self-start'}`}
+              >
+                {res.text}
+              </div>
+            ))}
+            <div ref={endOfMessagesRef} /> {/* Dummy div to scroll into view */}
+          </div>
+        </div>
+        <div className="mt-4 flex items-center space-x-2">
+          <input
+            type="text"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            onKeyDown={handleKeyDown}
+            className="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#d42755]"
+            placeholder="Type a message..."
+          />
+          <button
+            onClick={handleSend}
+            className="px-4 py-2 bg-[#d42755] text-white rounded-lg hover:bg-[#b51d48]"
+          >
+            Send
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Chat;
