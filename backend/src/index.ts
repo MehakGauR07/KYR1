@@ -11,7 +11,8 @@ const axios = require('axios');
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors( { origin: '*' }));
+app.use(cors( { origin: '*' , methods: ['GET', 'POST'],
+  allowedHeaders: ['Content-Type', 'Authorization'],}));
 app.use(bodyParser.json());
 
 app.use((req: Request, res: Response, next) => {
