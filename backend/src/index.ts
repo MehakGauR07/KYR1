@@ -12,7 +12,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-  origin: 'your mom so fat',  // Allows all origins, adjust this to be more restrictive if needed
+  origin: '*',  // Allows all origins, adjust this to be more restrictive if needed
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
