@@ -14,6 +14,11 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cors( { origin: '*' }));
 app.use(bodyParser.json());
 
+app.use((req: Request, res: Response, next) => {
+  console.log(`Received ${req.method} request for ${req.url}`);
+  next();
+});
+
 // Define routes
 app.get('/api/options/case1/:category', async (req: Request, res: Response) => {
     try {
