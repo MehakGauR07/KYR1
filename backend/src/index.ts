@@ -3,18 +3,18 @@ import cors from 'cors';
 import "dotenv/config";
 import mongoose from "mongoose";
 import { case2Model } from '../models/case2';  // Import your Mongoose model
-import { case2 } from '../data/case2';  // Import your case2 data
+// import { case2 } from '../data/case2'; 
 import { case3Model } from '../models/case3';
-import { case3 } from '../data/case3';
+// import { case3 } from '../data/case3';
 import bodyParser from 'body-parser';
 const axios = require('axios');
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-  origin: 'https://kyr-frontend.vercel.app', // Replace with your actual frontend URL
-  methods: ['GET', 'POST'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
+  origin: '*',  // Allows all origins, adjust this to be more restrictive if needed
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 app.use(bodyParser.json());
