@@ -55,17 +55,33 @@ app.get('/api/options/case2/:article', async (req: Request, res: Response) => {
     }
 });
 
-app.post('/chat', async (req, res) => {
-  try {
-      const response = await axios.post('http://localhost:5005/webhooks/rest/webhook', {
-          sender: 'user',
-          message: req.body.message
-      });
-      res.json(response.data);
-  } catch (error) {
-      res.status(500).send(error);
+// ----------------------------------------------
+
+const VERIFY_TOKEN = process.env.VERIFY_TOKEN as string;
+
+export const webhookHandler = (req: Request, res: Response) => {
+  // Parse the query params
+  const mode: string | undefined = req.query['hub.mode'] as string | undefined;
+  const token: string | undefined = req.query['hub.verify_token'] as string | undefined;
+  const challenge: string | undefined = req.query['hub.challenge'] as string | undefined;
+  
+  // Checks if a token and mode are in the query string of the request
+  if (mode && token) {
+    // Checks the mode and token sent is correct
+    if (mode === 'subscribe' && token === VERIFY_TOKEN) {
+      // Responds with the challenge token from the request
+      console.log('WEBHOOK_VERIFIED');
+      res.status(200).send(challenge);
+    } else {
+      // Responds with '403 Forbidden' if verify tokens do not match
+      res.sendStatus(403);
+    }
+  } else {
+    res.sendStatus(400); // Bad Request if mode or token is missing
   }
-});
+};
+
+// ----------------------------------------------
 
 // Connect to MongoDB and start the server
 mongoose.connect(process.env.MONGO_URI as string)
