@@ -57,35 +57,35 @@ app.get('/api/options/case2/:article', async (req: Request, res: Response) => {
 
 // ----------------------------------------------
 
-const VERIFY_TOKEN = "youaregay";
+// const VERIFY_TOKEN = "youaregay";
 
-export const webhookHandler = (req: Request, res: Response) => {
-  try {
-    // Parse the query params
-    const mode = req.query['hub.mode'] as string | undefined;
-    const token = req.query['hub.verify_token'] as string | undefined;
-    const challenge = req.query['hub.challenge'] as string | undefined;
-
-    // Validate the presence of mode and token
-    if (!mode || !token) {
-      console.error("Missing mode or token in query parameters");
-      return res.status(400).send({ error: 'Bad Request: Missing mode or token' });
-    }
-
-    // Validate the token
+// Adds support for GET requests to our webhook
+app.get('/webhook', (req, res) => {
+  
+  // Your verify token. Should be a string you set.
+  let VERIFY_TOKEN = "youaregay";
+  
+  // Parse the query params
+  let mode = req.query['hub.mode'];
+  let token = req.query['hub.verify_token'];
+  let challenge = req.query['hub.challenge'];
+  
+  // Checks if a token and mode is in the query string of the request
+  if (mode && token) {
+    
+    // Checks the mode and token sent is correct
     if (mode === 'subscribe' && token === VERIFY_TOKEN) {
+      
+      // Responds with the challenge token from the request
       console.log('WEBHOOK_VERIFIED');
-      return res.status(200).send(challenge);
+      res.status(200).send(challenge);
+      
     } else {
-      console.error('Invalid VERIFY_TOKEN');
-      return res.status(403).send({ error: 'Forbidden: Invalid verify token' });
+      // Responds with '403 Forbidden' if verify tokens do not match
+      res.sendStatus(403);      
     }
-  } catch (error) {
-    console.error("Webhook handler error:", error);
-    return res.status(500).send({ error: 'Internal Server Error', details: error.message });
   }
-};
-
+});
 
 // ----------------------------------------------
 
