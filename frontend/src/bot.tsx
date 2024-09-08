@@ -1,13 +1,16 @@
 import { useState, useRef, useEffect } from 'react';
-import sendMessageToWitAI, { clearSessionId }  from './apicall'; // Import the function
+import sendMessageToWitAI, { clearSessionId } from './apicall'; // Import the function
 
 const Chat = () => {
   const [message, setMessage] = useState('');
   const [responses, setResponses] = useState<{ text: string; sender: string }[]>([]);
+  const [isLoading, setIsLoading] = useState(false); // State for loading indicator
   const endOfMessagesRef = useRef<HTMLDivElement>(null); // Ref for the end of messages
 
   const handleSend = async () => {
     if (!message.trim()) return; // Do nothing if the message is empty
+
+    setIsLoading(true); // Start loading indicator
 
     try {
       // Send the message to Wit.ai and get the response text
@@ -26,6 +29,8 @@ const Chat = () => {
       console.error('Error:', error);
       // Optionally, display an error message in the chat
       setResponses([...responses, { text: 'Sorry, something went wrong.', sender: 'bot' }]);
+    } finally {
+      setIsLoading(false); // Stop loading indicator
     }
   };
 
@@ -58,6 +63,9 @@ const Chat = () => {
                 {res.text}
               </div>
             ))}
+            {isLoading && (
+              <div className="self-center p-3 text-gray-600">Loading...</div>
+            )}
             <div ref={endOfMessagesRef} /> {/* Dummy div to scroll into view */}
           </div>
         </div>
@@ -73,12 +81,14 @@ const Chat = () => {
           <button
             onClick={handleSend}
             className="px-4 py-2 bg-[#d42755] text-white rounded-lg hover:bg-[#b51d48]"
+            disabled={isLoading} // Disable send button while loading
           >
-            Send
+            {isLoading ? 'Sending...' : 'Send'}
           </button>
           <button
             onClick={handleRefreshChat}
             className="px-4 py-2 bg-[#d42755] text-white rounded-lg hover:bg-[#b51d48]"
+            disabled={isLoading} // Disable refresh button while loading
           >
             Refresh
           </button>
