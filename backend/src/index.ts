@@ -82,7 +82,7 @@ export const webhookHandler = (req: Request, res: Response) => {
     }
   } catch (error) {
     console.error("Webhook handler error:", error);
-    return res.status(500).send({ error: 'Internal Server Error' });
+    return res.status(500).send({ error: 'Internal Server Error', details: error.message });
   }
 };
 
