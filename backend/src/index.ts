@@ -57,29 +57,35 @@ app.get('/api/options/case2/:article', async (req: Request, res: Response) => {
 
 // ----------------------------------------------
 
-// const VERIFY_TOKEN = process.env.VERIFY_TOKEN as string;
+const VERIFY_TOKEN = "youaregay";
 
-// export const webhookHandler = (req: Request, res: Response) => {
-//   // Parse the query params
-//   const mode: string | undefined = req.query['hub.mode'] as string | undefined;
-//   const token: string | undefined = req.query['hub.verify_token'] as string | undefined;
-//   const challenge: string | undefined = req.query['hub.challenge'] as string | undefined;
-  
-//   // Checks if a token and mode are in the query string of the request
-//   if (mode && token) {
-//     // Checks the mode and token sent is correct
-//     if (mode === 'subscribe' && token === VERIFY_TOKEN) {
-//       // Responds with the challenge token from the request
-//       console.log('WEBHOOK_VERIFIED');
-//       res.status(200).send(challenge);
-//     } else {
-//       // Responds with '403 Forbidden' if verify tokens do not match
-//       res.sendStatus(403);
-//     }
-//   } else {
-//     res.sendStatus(400); // Bad Request if mode or token is missing
-//   }
-// };
+export const webhookHandler = (req: Request, res: Response) => {
+  try {
+    // Parse the query params
+    const mode = req.query['hub.mode'] as string | undefined;
+    const token = req.query['hub.verify_token'] as string | undefined;
+    const challenge = req.query['hub.challenge'] as string | undefined;
+
+    // Validate the presence of mode and token
+    if (!mode || !token) {
+      console.error("Missing mode or token in query parameters");
+      return res.status(400).send({ error: 'Bad Request: Missing mode or token' });
+    }
+
+    // Validate the token
+    if (mode === 'subscribe' && token === VERIFY_TOKEN) {
+      console.log('WEBHOOK_VERIFIED');
+      return res.status(200).send(challenge);
+    } else {
+      console.error('Invalid VERIFY_TOKEN');
+      return res.status(403).send({ error: 'Forbidden: Invalid verify token' });
+    }
+  } catch (error) {
+    console.error("Webhook handler error:", error);
+    return res.status(500).send({ error: 'Internal Server Error' });
+  }
+};
+
 
 // ----------------------------------------------
 
