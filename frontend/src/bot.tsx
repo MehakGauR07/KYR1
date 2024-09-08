@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import sendMessageToWitAI from './apicall'; // Import the function
+import sendMessageToWitAI, { clearSessionId }  from './apicall'; // Import the function
 
 const Chat = () => {
   const [message, setMessage] = useState('');
@@ -12,14 +12,14 @@ const Chat = () => {
     try {
       // Send the message to Wit.ai and get the response text
       const witResponseText = await sendMessageToWitAI(message);
-      
+
       // Update the responses state with the user's message and Wit.ai's reply
       setResponses([
         ...responses,
         { text: message, sender: 'user' },
         { text: witResponseText, sender: 'bot' } // Use the extracted text string from Wit.ai
       ]);
-      
+
       // Clear the input field
       setMessage('');
     } catch (error) {
@@ -33,6 +33,11 @@ const Chat = () => {
     if (e.key === 'Enter' && message.trim()) {
       handleSend();
     }
+  };
+
+  const handleRefreshChat = () => {
+    clearSessionId(); // Clear the session ID
+    setResponses([]); // Clear the chat history
   };
 
   // Scroll to the bottom whenever responses change
@@ -70,6 +75,12 @@ const Chat = () => {
             className="px-4 py-2 bg-[#d42755] text-white rounded-lg hover:bg-[#b51d48]"
           >
             Send
+          </button>
+          <button
+            onClick={handleRefreshChat}
+            className="px-4 py-2 bg-[#d42755] text-white rounded-lg hover:bg-[#b51d48]"
+          >
+            Refresh
           </button>
         </div>
       </div>
