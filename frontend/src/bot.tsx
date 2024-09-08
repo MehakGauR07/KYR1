@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import sendMessageToBot from './apicall'; // Import the function
+import sendMessageToWitAI from './apicall'; // Import the function
 
 const Chat = () => {
   const [message, setMessage] = useState('');
@@ -7,12 +7,25 @@ const Chat = () => {
   const endOfMessagesRef = useRef<HTMLDivElement>(null); // Ref for the end of messages
 
   const handleSend = async () => {
+    if (!message.trim()) return; // Do nothing if the message is empty
+
     try {
-      const response = await sendMessageToBot(message);
-      setResponses([...responses, { text: message, sender: 'user' }, ...response]);
+      // Send the message to Wit.ai and get the response text
+      const witResponseText = await sendMessageToWitAI(message);
+      
+      // Update the responses state with the user's message and Wit.ai's reply
+      setResponses([
+        ...responses,
+        { text: message, sender: 'user' },
+        { text: witResponseText, sender: 'bot' } // Use the extracted text string from Wit.ai
+      ]);
+      
+      // Clear the input field
       setMessage('');
     } catch (error) {
       console.error('Error:', error);
+      // Optionally, display an error message in the chat
+      setResponses([...responses, { text: 'Sorry, something went wrong.', sender: 'bot' }]);
     }
   };
 
