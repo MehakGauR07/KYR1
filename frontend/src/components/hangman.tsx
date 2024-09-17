@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import hangman0 from '../assets/hangman/hangman-0.svg';
 import hangman1 from '../assets/hangman/hangman-1.svg';
 import hangman2 from '../assets/hangman/hangman-2.svg';
