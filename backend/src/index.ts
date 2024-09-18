@@ -3,12 +3,15 @@ import cors from 'cors';
 import "dotenv/config";
 import mongoose from "mongoose";
 import { case2Model } from '../models/case2';  // Import your Mongoose model
-// import { case2 } from '../data/case2'; 
+import { case2 } from '../data/case2'; 
 import { case3Model } from '../models/case3';
-// import { case3 } from '../data/case3';
+import { case3 } from '../data/case3';
 import bodyParser from 'body-parser';
 const axios = require('axios');
-
+import {data43Model} from '../models/data43';
+import {data43} from '../data/data43';
+import { data53Model } from '../models/data53';
+import { data53 } from '../data/data53';
 const app = express();
 
 // Middleware setup
@@ -55,6 +58,35 @@ app.get('/api/options/case2/:article', async (req: Request, res: Response) => {
     }
 });
 
+app.get('/api/options/data43/:article', async (req: Request, res: Response) => {
+  const article = req.params.article;
+  try {
+      const data43data = await data43Model.findOne({ Category: article });
+
+      if (!data43data) {
+          return res.status(404).json({ message: 'Data not found in case3' });
+      }
+
+      return res.status(200).json(data43data);
+  } catch (error) {
+      return res.status(500).json({ error: 'Failed to fetch data from case3' });
+  }
+});
+app.get('/api/options/data53/:article', async (req: Request, res: Response) => {
+  const article = req.params.article;
+  try {
+      const data53data = await data53Model.findOne({ Category: article });
+
+      if (!data53data) {
+          return res.status(404).json({ message: 'Data not found in case3' });
+      }
+
+      return res.status(200).json(data53data);
+  } catch (error) {
+      return res.status(500).json({ error: 'Failed to fetch data from case3' });
+  }
+});
+
 // ----------------------------------------------
 
 // const VERIFY_TOKEN = "youaregay";
@@ -97,6 +129,8 @@ mongoose.connect(process.env.MONGO_URI as string)
       // await mongoose.connection.db.dropDatabase();  
       // await case2Model.insertMany(case2);  
       // await case3Model.insertMany(case3);  
+      // await data43Model.insertMany(data43);
+      // await data53Model.insertMany(data53);
       // console.log("Data inserted successfully");
     } catch (error) {
       console.error("Error inserting data:", error);
