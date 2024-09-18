@@ -9,7 +9,9 @@ import hangman from "../assets/hangman/hangman-6.svg";
 import RockPaperScissors from "../components/rockps";
 import consti from "../assets/rps/constitution.png";
 import BoggleGame from "../components/BoggleGame";
-import boggle from "../assets//boggle.jpeg"
+import boggle from "../assets//boggle.jpeg";
+import QuizComponent from "../components/quiz";
+import qc from "../assets/quizcard.png";
 const GetStarted = () => {
   // State to track which game is active
   const [activeGame, setActiveGame] = useState<string | null>(null);
@@ -96,8 +98,24 @@ const GetStarted = () => {
               ></div>
               {/* Card Content */}
               <div className="relative z-10 p-6 bg-white bg-opacity-75">
-                <p className="text-xl font-semibold">Game 3</p>
-                <p className="text-sm text-gray-600">Challenge yourself with this game!</p>
+                <p className="text-xl font-semibold">Boggle Game</p>
+                <p className="text-sm text-gray-600">Challenge yourself with this word finding game!</p>
+              </div>
+            </div>
+
+            <div
+              className="relative bg-white shadow-md rounded-lg cursor-pointer hover:shadow-lg transition-shadow min-h-[250px] flex flex-col justify-between overflow-hidden"
+              onClick={() => handleGameClick("game4")}
+            >
+              {/* Background Image with Blur */}
+              <div
+                className="absolute inset-0 bg-cover bg-center transition-transform transform hover:scale-110 filter blur-sm hover:blur-none"
+                style={{ backgroundImage: `url(${qc})` }}
+              ></div>
+              {/* Card Content */}
+              <div className="relative z-10 p-6 bg-white bg-opacity-75">
+                <p className="text-xl font-semibold">Quiz game</p>
+                <p className="text-sm text-gray-600">The classic quiz game to tickle your brain!</p>
               </div>
             </div>
           </div>
@@ -130,8 +148,9 @@ const GetStarted = () => {
       {/* Modal Content */}
       <div className="text-center">
         {activeGame === "hangman" && <HangmanGame />}
-        {activeGame === "rps" && <RockPaperScissors/>}
+        {activeGame === "game2" && <RockPaperScissors/>}
         {activeGame === "game3" && <BoggleGame dictionaryApiUrl="https://api.dictionaryapi.dev/api/v2/entries/en/" />}
+        {activeGame === "game4" && <QuizComponent/>}
       </div>
     </div>
   </div>
