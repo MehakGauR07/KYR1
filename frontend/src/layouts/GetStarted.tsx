@@ -33,10 +33,17 @@ const GetStarted = () => {
       <main className="flex-grow container mx-auto px-6 py-2">
         {/* Form Section */}
         <div className="mb-8">
-          <Form />
-          <Form2 />
-          <Form3 />
-        </div>
+  <div className="border border-pink-200 p-4 mb-4">
+    <Form />
+  </div>
+  <div className="border border-pink-200 p-4 mb-4">
+    <Form2 />
+  </div>
+  <div className="border border-pink-200 p-4">
+    <Form3 />
+  </div>
+</div>
+
 
         {/* Separator Strip */}
         <div className="bg-[#d42755] h-14 my-8 w-full flex items-center justify-center border-rounded">
@@ -49,42 +56,50 @@ const GetStarted = () => {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {/* Card 1 */}
             <div
-              className="relative bg-white shadow-md rounded-lg cursor-pointer hover:shadow-lg transition-shadow min-h-[250px] flex flex-col justify-between overflow-hidden"
-              onClick={() => handleGameClick("hangman")}
-            >
-              {/* Background Image with Blur and Zoom on Hover */}
-              <div
-                className="absolute inset-0 bg-no-repeat bg-center transition-transform transform hover:scale-110 filter blur-sm hover:blur-none"
-                style={{
-                  backgroundImage: `url(${hangman})`,
-                  backgroundSize: 'contain', // Image will be fully visible and not distorted
-                  backgroundPosition: 'center', // Centers the image inside the div
-                  transition: 'transform 0.3s ease, filter 0.3s ease', // Smooth transition for scaling and unblurring
-                }}
-              ></div>
-              {/* Card Content */}
-              <div className="relative z-10 p-6 bg-white bg-opacity-75">
-                <p className="text-xl font-semibold">Hangman</p>
-                <p className="text-sm text-gray-600">Test your word-guessing skills!</p>
-              </div>
-            </div>
+  className="relative bg-white shadow-md rounded-lg cursor-pointer hover:shadow-lg transition-shadow min-h-[250px] flex flex-col justify-between overflow-hidden"
+  onClick={() => handleGameClick("hangman")}
+>
+  {/* Background Image without Blur */}
+  <div
+    className="absolute inset-0 bg-no-repeat bg-center transition-transform transform hover:scale-110"
+    style={{
+      backgroundImage: `url(${hangman})`,
+      backgroundSize: 'contain', // Image will be fully visible and not distorted
+      backgroundPosition: 'center', // Centers the image inside the div
+      transition: 'transform 0.3s ease', // Smooth transition for scaling
+    }}
+  ></div>
+
+  {/* Card Content with Blur Effect */}
+  <div className="relative z-10 p-6 bg-white bg-opacity-50 backdrop-blur-sm">
+    <p className="text-xl font-semibold">Hangman</p>
+    <p className="text-sm text-gray-600">Test your word-guessing skills!</p>
+  </div>
+</div>
+
 
             {/* Card 2 */}
-            <div
-              className="relative bg-white shadow-md rounded-lg cursor-pointer hover:shadow-lg transition-shadow min-h-[250px] flex flex-col justify-between overflow-hidden"
-              onClick={() => handleGameClick("game2")}
-            >
-              {/* Background Image with Blur */}
-              <div
-                className="absolute inset-0 bg-cover bg-center transition-transform transform hover:scale-110 filter blur-sm hover:blur-none"
-                style={{ backgroundImage: `url(${consti})` }}
-              ></div>
-              {/* Card Content */}
-              <div className="relative z-10 p-6 bg-white bg-opacity-75">
-                <p className="text-xl font-semibold">Rock Paper Scissors</p>
-                <p className="text-sm text-gray-600">A fun and exciting game based on chance!</p>
-              </div>
-            </div>
+<div
+  className="relative bg-white shadow-md rounded-lg cursor-pointer hover:shadow-lg transition-shadow min-h-[250px] flex flex-col justify-between overflow-hidden"
+  onClick={() => handleGameClick("game2")}
+>
+  {/* Background Image without Blur */}
+  <div
+    className="absolute inset-0 bg-no-repeat bg-center transition-transform transform hover:scale-110"
+    style={{
+      backgroundImage: `url(${consti})`,
+      backgroundSize: 'cover', // Ensure the image covers the entire area
+      backgroundPosition: 'center', // Centers the image inside the div
+      transition: 'transform 0.3s ease', // Smooth transition for scaling
+    }}
+  ></div>
+
+  {/* Card Content with Blur Effect */}
+  <div className="relative z-10 p-6 bg-white bg-opacity-50 backdrop-blur-sm">
+    <p className="text-xl font-semibold">Rock Paper Scissors</p>
+    <p className="text-sm text-gray-600">A fun and exciting game based on chance!</p>
+  </div>
+</div>
 
             {/* Card 3 */}
             <div
@@ -93,27 +108,27 @@ const GetStarted = () => {
             >
               {/* Background Image with Blur */}
               <div
-                className="absolute inset-0 bg-cover bg-center transition-transform transform hover:scale-110 filter blur-sm hover:blur-none"
+                className="absolute inset-0 bg-no-repeat bg-center transition-transform transform hover:scale-110"
                 style={{ backgroundImage: `url(${boggle})` }}
               ></div>
               {/* Card Content */}
-              <div className="relative z-10 p-6 bg-white bg-opacity-75">
+              <div className="relative z-10 p-6 bg-white bg-opacity-50 backdrop-blur-sm">
                 <p className="text-xl font-semibold">Boggle Game</p>
                 <p className="text-sm text-gray-600">Challenge yourself with this word finding game!</p>
               </div>
             </div>
-
+            
             <div
               className="relative bg-white shadow-md rounded-lg cursor-pointer hover:shadow-lg transition-shadow min-h-[250px] flex flex-col justify-between overflow-hidden"
               onClick={() => handleGameClick("game4")}
             >
               {/* Background Image with Blur */}
               <div
-                className="absolute inset-0 bg-cover bg-center transition-transform transform hover:scale-110 filter blur-sm hover:blur-none"
+                className="absolute inset-0 bg-no-repeat bg-center transition-transform transform hover:scale-110"
                 style={{ backgroundImage: `url(${qc})` }}
               ></div>
               {/* Card Content */}
-              <div className="relative z-10 p-6 bg-white bg-opacity-75">
+              <div className="relative z-10 p-6 bg-white bg-opacity-50 backdrop-blur-sm">
                 <p className="text-xl font-semibold">Quiz game</p>
                 <p className="text-sm text-gray-600">The classic quiz game to tickle your brain!</p>
               </div>

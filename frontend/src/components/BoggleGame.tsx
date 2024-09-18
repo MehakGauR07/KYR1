@@ -11,13 +11,13 @@ interface WordDefinition {
 }
 
 const lawWords = [
-  "ACT", "BILL", "CODE", "LAW", "JURY", "VOTE", "RULE", "CASE",
-  "COURT", "RIGHT", "TRIAL", "CLAIM", "PLEA", "OATH", "CLERK",
-  "DEED", "FACT", "FINE", "BAIL", "DUTY", "TAX", "TERM", "VOTE",
-  "DEBT", "VOID", "WRIT", "WILL", "FUND", "BOND", "STATE",
-  "PARTY", "PROOF", "JUDGE", "CRIME", "TREAT", "TRUST", "PACT",
-  "MINOR", "GUILD", "GUARD", "PANEL", "AGENT", "CIVIL", "MAJOR",
-  "LEGAL", "VALUE", "LEASE", "AWARD", "BENCH"
+  "ACT", "BILL", "LAW", "JURY", "VOTE", "APPEAL",
+  "COURT", "LIABLE", "TRIAL", "CLAIM", "PLEA", "OATH", "CLERK",
+  "DEED", "REMIT", "FINE", "BAIL", "DUTY", "TAX", "TERM", "VOTE",
+  "DEBT", "VOID", "WRIT", "JUROR", "FUND", "BOND", "STATE",
+  "PARTY", "PROOF", "JUDGE", "CRIME", "TREAT", "FRAUD", "PACT",
+  "MINOR", "GUILD", "GUARD", "PANEL", "AGENT", "CIVIL", "STATE",
+  "LEGAL", "SCAM", "LEASE", "AWARD", "BENCH"
 ];
 
 const getRandomWordsWithDefinitions = (words: string[], count: number): WordDefinition[] => {
@@ -118,8 +118,9 @@ const BoggleGame: React.FC<BoggleGameProps> = ({ dictionaryApiUrl }) => {
   const maxAttempts = 10;
 
   useEffect(() => {
-    setBoard(generateBoard(selectedWords)); // Generate board whenever selectedWords changes
-  }, [selectedWords]);
+    setBoard(generateBoard(selectedWords)); // Generate board only once at the start
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (attempts >= maxAttempts || selectedWords.every(({ word }) => guessedWords.has(word.toLowerCase()))) {
@@ -271,3 +272,4 @@ const BoggleGame: React.FC<BoggleGameProps> = ({ dictionaryApiUrl }) => {
 };
 
 export default BoggleGame;
+99

@@ -72,7 +72,7 @@ useEffect(() => {
             <label className="block text-2xl font-semibold text-gray-900 mb-6">
               The Six Fundamental Rights of the Indian Constitution:
             </label>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border-2 border-pink-200 p-4 mb-4">
               <button
                 onClick={() => handleAnswer('question1', 'equality')}
                 className="px-4 py-2 bg-[#d42755] text-white font-semibold rounded-lg shadow-md hover:bg-[#b51d48] transition duration-300"

@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import SearchComponent from "./searchcomponenet";
 import DictionaryApp from "./DictionaryApp";
+import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai"; // Hamburger and Close Icons
+
 type HeaderProps = {
   showGetStarted?: boolean; // Optional prop to control button rendering
 };
@@ -16,9 +18,11 @@ const Modal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
           onClick={onClose}
           className="absolute top-4 right-4 text-gray-600 hover:text-gray-900"
         >
-          <span className="material-icons font-bold">X</span>
+          <AiOutlineClose size={24} />
         </button>
-        <h2 className="text-3xl text-[#d42755] font-medium text-center mb-4">Law Dictionary</h2>
+        <h2 className="text-3xl text-[#d42755] font-medium text-center mb-4">
+          Law Dictionary
+        </h2>
         <DictionaryApp />
       </div>
     </div>
@@ -27,6 +31,7 @@ const Modal: React.FC<{ onClose: () => void }> = ({ onClose }) => {
 
 const Header: React.FC<HeaderProps> = ({ showGetStarted = true }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // State to toggle mobile menu
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -34,6 +39,10 @@ const Header: React.FC<HeaderProps> = ({ showGetStarted = true }) => {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+  };
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
   };
 
   return (
@@ -47,9 +56,22 @@ const Header: React.FC<HeaderProps> = ({ showGetStarted = true }) => {
             </span>
           </Link>
         </div>
-        <SearchComponent />
-        <div className="flex items-center space-x-4">
-        <button
+
+        {/* Hamburger icon for mobile */}
+        <div className="lg:hidden">
+          <button onClick={toggleMenu} className="text-gray-900">
+            {isMenuOpen ? (
+              <AiOutlineClose size={28} />
+            ) : (
+              <AiOutlineMenu size={28} />
+            )}
+          </button>
+        </div>
+
+        {/* Navigation links for larger screens */}
+        <div className="hidden lg:flex items-center space-x-4">
+          <SearchComponent />
+          <button
             onClick={handleOpenModal}
             className="px-6 py-3 bg-[#d42755] text-xl text-white font-semibold rounded-lg shadow-md hover:bg-[#b51d48] transition duration-300"
           >
@@ -70,8 +92,35 @@ const Header: React.FC<HeaderProps> = ({ showGetStarted = true }) => {
               Home
             </Link>
           )}
-          
         </div>
+
+        {/* Mobile menu */}
+        {isMenuOpen && (
+          <div className="lg:hidden absolute top-16 left-0 w-full bg-white shadow-md z-50">
+            <SearchComponent />
+            <button
+              onClick={handleOpenModal}
+              className="block w-full px-6 py-3 bg-[#d42755] text-xl text-white font-semibold rounded-lg shadow-md hover:bg-[#b51d48] transition duration-300 text-center"
+            >
+              Dictionary
+            </button>
+            {showGetStarted ? (
+              <Link
+                to="/get-started"
+                className="block w-full px-6 py-3 bg-[#d42755] text-xl text-white font-semibold rounded-lg shadow-md hover:bg-[#b51d48] transition duration-300 text-center"
+              >
+                Get Started
+              </Link>
+            ) : (
+              <Link
+                to="/"
+                className="block w-full px-6 py-3 bg-[#d42755] text-xl text-white font-semibold rounded-lg shadow-md hover:bg-[#b51d48] transition duration-300 text-center"
+              >
+                Home
+              </Link>
+            )}
+          </div>
+        )}
       </div>
 
       {isModalOpen && <Modal onClose={handleCloseModal} />}

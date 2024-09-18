@@ -64,7 +64,7 @@ const Form: React.FC = () => {
             <label className="block text-2xl font-semibold text-gray-900 mb-6">
               Directive Principles of State Policy:
             </label>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 h-60 overflow-y-auto">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 h-60 overflow-y-auto border-2 border-pink-200 p-4 mb-4">
               <button
                 onClick={() => handleAnswer('question1', '38')}
                 className={className2}
