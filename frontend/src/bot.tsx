@@ -52,8 +52,12 @@ const Chat = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
+        
       <div className="bg-white shadow-md rounded-lg p-8 h-[500px] flex flex-col">
+      {/* Convo start prompt - "Hey tell me my rights" */}
+      
         <div className="flex-1 overflow-y-auto p-4 bg-gray-100 border border-gray-300 rounded-lg">
+          
           <div className="space-y-4">
             {responses.map((res, index) => (
               <div
