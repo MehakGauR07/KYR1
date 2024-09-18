@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
+import SearchComponent from "./searchcomponenet";
 
 type HeaderProps = {
   showGetStarted?: boolean; // Optional prop to control button rendering
@@ -17,6 +18,7 @@ const Header: React.FC<HeaderProps> = ({ showGetStarted = true }) => {
             </span>
           </Link>
         </div>
+        <SearchComponent />
         {showGetStarted && (
           <div className="flex items-center space-x-4">
             <Link
