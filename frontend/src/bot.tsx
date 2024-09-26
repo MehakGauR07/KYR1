@@ -5,7 +5,7 @@ const Chat = () => {
   const [message, setMessage] = useState('');
   const [responses, setResponses] = useState<{ text: string; sender: string }[]>([]);
   const [isLoading, setIsLoading] = useState(false); // State for loading indicator
-  const endOfMessagesRef = useRef<HTMLDivElement>(null); // Ref for the end of messages
+  const chatContainerRef = useRef<HTMLDivElement>(null); // Ref for the chat messages container
 
   const handleSend = async () => {
     if (!message.trim()) return; // Do nothing if the message is empty
@@ -45,19 +45,20 @@ const Chat = () => {
     setResponses([]); // Clear the chat history
   };
 
-  // Scroll to the bottom whenever responses change
+  // Scroll to the bottom of the chat container whenever responses change
   useEffect(() => {
-    endOfMessagesRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (chatContainerRef.current) {
+      chatContainerRef.current.scrollTop = chatContainerRef.current.scrollHeight;
+    }
   }, [responses]);
 
   return (
     <div className="container mx-auto px-4 py-8">
-        
       <div className="bg-white shadow-md rounded-lg p-8 h-[500px] flex flex-col">
-      {/* Convo start prompt - "Hey tell me my rights" */}
-      
-        <div className="flex-1 overflow-y-auto p-4 bg-gray-100 border border-gray-300 rounded-lg">
-          
+        <div
+          ref={chatContainerRef}
+          className="flex-1 overflow-y-auto p-4 bg-gray-100 border border-gray-300 rounded-lg max-h-[400px]"
+        >
           <div className="space-y-4">
             {responses.map((res, index) => (
               <div
@@ -70,7 +71,6 @@ const Chat = () => {
             {isLoading && (
               <div className="self-center p-3 text-gray-600">Loading...</div>
             )}
-            <div ref={endOfMessagesRef} /> {/* Dummy div to scroll into view */}
           </div>
         </div>
         <div className="mt-4 flex items-center space-x-2">

@@ -190,6 +190,9 @@ const BoggleGame: React.FC<BoggleGameProps> = ({ dictionaryApiUrl }) => {
     setAttempts(0);
     setShowModal(false);
   };
+  const handleRestart = () => {
+    handleTryAgain(); // Reuse the logic in handleTryAgain to reset the game
+  };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
@@ -229,6 +232,8 @@ const BoggleGame: React.FC<BoggleGameProps> = ({ dictionaryApiUrl }) => {
       >
         Submit Guess
       </button>
+      <br></br>
+      <button onClick={handleRestart} className="bg-green-500 text-white px-4 py-2 rounded">Restart</button>
 
       {message && (
         <div className="mt-4 text-lg text-gray-800">
@@ -272,4 +277,3 @@ const BoggleGame: React.FC<BoggleGameProps> = ({ dictionaryApiUrl }) => {
 };
 
 export default BoggleGame;
-99
