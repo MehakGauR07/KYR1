@@ -3,15 +3,15 @@ import cors from 'cors';
 import "dotenv/config";
 import mongoose from "mongoose";
 import { case2Model } from '../models/case2';  // Import your Mongoose model
-import { case2 } from '../data/case2'; 
+// import { case2 } from '../data/case2'; 
 import { case3Model } from '../models/case3';
-import { case3 } from '../data/case3';
+// import { case3 } from '../data/case3';
 import bodyParser from 'body-parser';
 const axios = require('axios');
 import {data43Model} from '../models/data43';
-import {data43} from '../data/data43';
+// import {data43} from '../data/data43';
 import { data53Model } from '../models/data53';
-import { data53 } from '../data/data53';
+// import { data53 } from '../data/data53';
 const app = express();
 
 // Middleware setup
