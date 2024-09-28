@@ -54,10 +54,20 @@ const Chat = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
+      <h2 className="text-center text-3xl font-semibold text-gray-800 mb-4">
+        Welcome to Your Legal Assistant!
+      </h2>
       <div className="bg-white shadow-md rounded-lg p-8 h-[500px] flex flex-col">
+        <button
+          onClick={handleRefreshChat}
+          className="px-4 py-2 bg-[#d42755] text-white rounded-lg hover:bg-[#b51d48] transition duration-200 ease-in-out shadow-lg transform hover:scale-105"
+          disabled={isLoading} // Disable refresh button while loading
+        >
+          {isLoading ? 'Loading...' : 'Refresh Chat'}
+        </button>
         <div
           ref={chatContainerRef}
-          className="flex-1 overflow-y-auto p-4 bg-gray-100 border border-gray-300 rounded-lg max-h-[400px]"
+          className="flex-1 overflow-y-auto p-4 bg-gray-100 border border-gray-300 rounded-lg max-h-[400px] mt-4"
         >
           <div className="space-y-4">
             {responses.map((res, index) => (
@@ -84,17 +94,10 @@ const Chat = () => {
           />
           <button
             onClick={handleSend}
-            className="px-4 py-2 bg-[#d42755] text-white rounded-lg hover:bg-[#b51d48]"
+            className="px-4 py-2 bg-[#d42755] text-white rounded-lg hover:bg-[#b51d48] transition duration-200 ease-in-out"
             disabled={isLoading} // Disable send button while loading
           >
             {isLoading ? 'Sending...' : 'Send'}
-          </button>
-          <button
-            onClick={handleRefreshChat}
-            className="px-4 py-2 bg-[#d42755] text-white rounded-lg hover:bg-[#b51d48]"
-            disabled={isLoading} // Disable refresh button while loading
-          >
-            Refresh
           </button>
         </div>
       </div>

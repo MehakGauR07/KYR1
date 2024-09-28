@@ -14,6 +14,9 @@ import QuizComponent from "../components/quiz";
 import qc from "../assets/quizcard.png";
 import WordScramble from "../components/scramble";
 import sc from "../assets/scarmble.png";
+import FloatingChatButton from "../components/FloatingChat";
+import ChatModal from "../components/ChatModal";
+// import TypingTest from "../components/typing";
 
 const GetStarted = () => {
   // State to track which game is active
@@ -29,6 +32,16 @@ const GetStarted = () => {
     setActiveGame(null);
   };
 
+  const [isChatOpen, setIsChatOpen] = useState(false);
+
+  const handleOpenChat = () => {
+    setIsChatOpen(true);
+  };
+
+  const handleCloseChat = () => {
+    setIsChatOpen(false);
+  };
+  
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
       <Header showGetStarted={false} />
@@ -188,6 +201,7 @@ const GetStarted = () => {
         {activeGame === "game3" && <BoggleGame dictionaryApiUrl="https://api.dictionaryapi.dev/api/v2/entries/en/" />}
         {activeGame === "game4" && <QuizComponent/>}
         {activeGame === "game5" && <WordScramble />}
+        {/* {activeGame === "game6" && <TypingTest />} */}
       </div>
     </div>
   </div>
@@ -201,6 +215,8 @@ const GetStarted = () => {
       <footer className="bg-gray-800 text-white text-center py-4 mt-6">
         © 2024 KYR. All rights reserved.
       </footer>
+      <FloatingChatButton onClick={handleOpenChat} />
+      <ChatModal isOpen={isChatOpen} onClose={handleCloseChat} />
     </div>
   );
 };

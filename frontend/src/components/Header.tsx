@@ -97,24 +97,28 @@ const Header: React.FC<HeaderProps> = ({ showGetStarted = true }) => {
         {/* Mobile menu */}
         {isMenuOpen && (
           <div className="lg:hidden absolute top-16 left-0 w-full bg-white shadow-md z-50">
-            <SearchComponent />
+            <div className="flex justify-center p-4">
+              {" "}
+              {/* Flex container to center the SearchComponent */}
+              <SearchComponent />
+            </div>
             <button
               onClick={handleOpenModal}
-              className="block w-full px-6 py-3 bg-[#d42755] text-xl text-white font-semibold rounded-lg shadow-md hover:bg-[#b51d48] transition duration-300 text-center"
+              className="block w-full mb-4 px-6 py-3 bg-[#d42755] text-xl text-white font-semibold rounded-lg shadow-md hover:bg-[#b51d48] transition duration-300 text-center"
             >
               Dictionary
             </button>
             {showGetStarted ? (
               <Link
                 to="/get-started"
-                className="block w-full px-6 py-3 bg-[#d42755] text-xl text-white font-semibold rounded-lg shadow-md hover:bg-[#b51d48] transition duration-300 text-center"
+                className="block w-full mb-4 px-6 py-3 bg-[#d42755] text-xl text-white font-semibold rounded-lg shadow-md hover:bg-[#b51d48] transition duration-300 text-center"
               >
                 Get Started
               </Link>
             ) : (
               <Link
                 to="/"
-                className="block w-full px-6 py-3 bg-[#d42755] text-xl text-white font-semibold rounded-lg shadow-md hover:bg-[#b51d48] transition duration-300 text-center"
+                className="block w-full mb-4 px-6 py-3 bg-[#d42755] text-xl text-white font-semibold rounded-lg shadow-md hover:bg-[#b51d48] transition duration-300 text-center"
               >
                 Home
               </Link>
