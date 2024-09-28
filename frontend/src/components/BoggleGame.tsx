@@ -13,7 +13,7 @@ interface WordDefinition {
 const lawWords = [
   "ACT", "BILL", "LAW", "JURY", "VOTE", "APPEAL",
   "COURT", "LIABLE", "TRIAL", "CLAIM", "PLEA", "OATH", "CLERK",
-  "DEED", "REMIT", "FINE", "BAIL", "DUTY", "TAX", "TERM", "VOTE",
+  "DEED", "REMIT", "FINE", "BAIL", "DUTY", "TAX", "TERM",
   "DEBT", "VOID", "WRIT", "JUROR", "FUND", "BOND", "STATE",
   "PARTY", "PROOF", "JUDGE", "CRIME", "TREAT", "FRAUD", "PACT",
   "MINOR", "GUILD", "GUARD", "PANEL", "AGENT", "CIVIL", "STATE",
@@ -181,7 +181,7 @@ const BoggleGame: React.FC<BoggleGameProps> = ({ dictionaryApiUrl }) => {
   };
 
   const handleTryAgain = () => {
-    const newWords = getRandomWordsWithDefinitions(lawWords, 6);
+    const newWords = getRandomWordsWithDefinitions(lawWords, 5);
     setSelectedWords(newWords);
     setBoard(generateBoard(newWords)); // Regenerate board only when starting a new game
     setWord('');
@@ -201,8 +201,8 @@ const BoggleGame: React.FC<BoggleGameProps> = ({ dictionaryApiUrl }) => {
     }
   };
 
-  return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 py-8">
+  return ( <div className="max-w-2xl mx-auto mt-10 p-5 bg-white shadow-lg rounded-lg">
+    <div className="flex flex-col items-center justify-center min-h-screen py-8">
       <h1 className="text-3xl font-bold text-gray-800 mb-6">Boggle Game</h1>
 
       <div className="grid grid-cols-6 gap-2 mb-6">
@@ -222,7 +222,7 @@ const BoggleGame: React.FC<BoggleGameProps> = ({ dictionaryApiUrl }) => {
         type="text"
         value={word}
         onChange={(e) => setWord(e.target.value.toUpperCase())}
-        onKeyDown={handleKeyDown}
+        onKeyDown={handleKeyDown }
         placeholder="Guess a word"
         className="p-2 border rounded-lg w-64 mb-4 text-center text-xl"
       />
@@ -257,12 +257,26 @@ const BoggleGame: React.FC<BoggleGameProps> = ({ dictionaryApiUrl }) => {
       {showModal && (
         <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-50 z-50">
           <div className="bg-white p-6 rounded-lg shadow-lg text-center">
-            <h2 className="text-2xl font-bold mb-4">Game Over</h2>
-            <p className="mb-4">
-              {attempts >= maxAttempts
-                ? 'You have reached the maximum number of attempts.'
-                : 'Congratulations! You have guessed all words correctly.'}
-            </p>
+            {attempts >= maxAttempts ? (
+              <p>
+              <h2 className="text-2xl font-bold mb-4">Game Over😢</h2>
+              <img src="/src/assets/hangman/lost.gif" alt="game-status" className="w-32 mx-auto mb-4"></img>
+               You have reached the maximum number of attempts.
+              </p>
+            ) : (
+              <div>
+                <h2 className="text-2xl font-bold mb-4">Congratulations!🎊</h2>
+                <img src="/src/assets/hangman/victory.gif" alt="game-status" className="w-32 mx-auto mb-4"></img>
+                <p className="mb-4">You have guessed all words correctly.</p>
+                <ul className="list-disc list-inside">
+                  {selectedWords.map(({ word, definition }) => (
+                    <li key={word} className="text-lg text-gray-600">
+                      <strong>{word}:</strong> {definition || 'Definition not yet available.'}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}<br></br>
             <button
               onClick={handleTryAgain}
               className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded-lg font-semibold"
@@ -273,7 +287,9 @@ const BoggleGame: React.FC<BoggleGameProps> = ({ dictionaryApiUrl }) => {
         </div>
       )}
     </div>
+</div>
   );
 };
 
 export default BoggleGame;
+             

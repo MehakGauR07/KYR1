@@ -12,6 +12,9 @@ import BoggleGame from "../components/BoggleGame";
 import boggle from "../assets//boggle.jpeg";
 import QuizComponent from "../components/quiz";
 import qc from "../assets/quizcard.png";
+import WordScramble from "../components/scramble";
+import sc from "../assets/scarmble.png";
+
 const GetStarted = () => {
   // State to track which game is active
   const [activeGame, setActiveGame] = useState<string | null>(null);
@@ -133,7 +136,25 @@ const GetStarted = () => {
                 <p className="text-sm text-gray-600">The classic quiz game to tickle your brain!</p>
               </div>
             </div>
+
+            <div
+              className="relative bg-white shadow-md rounded-lg cursor-pointer hover:shadow-lg transition-shadow min-h-[250px] flex flex-col justify-between overflow-hidden"
+              onClick={() => handleGameClick("game5")}
+            >
+              {/* Background Image with Blur */}
+              <div
+                className="absolute inset-0 bg-no-repeat bg-center transition-transform transform hover:scale-110"
+                style={{ backgroundImage: `url(${sc})` }}
+              ></div>
+              {/* Card Content */}
+              <div className="relative z-10 p-6 bg-white bg-opacity-50 backdrop-blur-sm">
+                <p className="text-xl font-semibold">Scramble game</p>
+                <p className="text-sm text-gray-600">Can you guess the word before time runs out?</p>
+              </div>
+            </div>
+
           </div>
+          
 
           {/* Display active game */}
           {/* Display active game */}
@@ -166,6 +187,7 @@ const GetStarted = () => {
         {activeGame === "game2" && <RockPaperScissors/>}
         {activeGame === "game3" && <BoggleGame dictionaryApiUrl="https://api.dictionaryapi.dev/api/v2/entries/en/" />}
         {activeGame === "game4" && <QuizComponent/>}
+        {activeGame === "game5" && <WordScramble />}
       </div>
     </div>
   </div>
