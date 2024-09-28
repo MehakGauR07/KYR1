@@ -5,7 +5,7 @@ const About = () => {
 
       {/* Detailed Information Section */}
       <div className="bg-white shadow-md rounded-lg p-8">
-        <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">Why Knowing Your Rights Matters</h2>
+        <h2 className="text-2xl font-semibold text-gray-900 mt-8 mb-4">Why Knowing Your Rights Matter</h2>
         <ul className="list-disc list-inside mb-6 text-gray-700">
           <li className="mb-2"><strong>Protect Yourself:</strong> Being aware of your rights helps you safeguard your personal freedoms and defend yourself against injustices.</li>
           <li className="mb-2"><strong>Make Informed Decisions:</strong> Knowledge enables you to make decisions that are in your best interest, whether it’s in your personal life, at work, or in the community.</li>
