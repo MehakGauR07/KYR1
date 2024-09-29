@@ -17,7 +17,7 @@ const lawWords = [
   "DEBT", "VOID", "WRIT", "JUROR", "FUND", "BOND", "STATE",
   "PARTY", "PROOF", "JUDGE", "CRIME", "TREAT", "FRAUD", "PACT",
   "MINOR", "GUILD", "GUARD", "PANEL", "AGENT", "CIVIL", "STATE",
-  "LEGAL", "SCAM", "LEASE", "AWARD", "BENCH"
+  "LEGAL", "SCAM", "LEASE", "AWARD"
 ];
 
 const getRandomWordsWithDefinitions = (words: string[], count: number): WordDefinition[] => {
@@ -108,7 +108,7 @@ const generateBoard = (selectedWords: WordDefinition[]): string[][] => {
 };
 
 const BoggleGame: React.FC<BoggleGameProps> = ({ dictionaryApiUrl }) => {
-  const [selectedWords, setSelectedWords] = useState<WordDefinition[]>(() => getRandomWordsWithDefinitions(lawWords, 6));
+  const [selectedWords, setSelectedWords] = useState<WordDefinition[]>(() => getRandomWordsWithDefinitions(lawWords, 5));
   const [board, setBoard] = useState<string[][]>(() => generateBoard(selectedWords));
   const [word, setWord] = useState<string>('');
   const [message, setMessage] = useState<string | null>(null);
@@ -205,12 +205,12 @@ const BoggleGame: React.FC<BoggleGameProps> = ({ dictionaryApiUrl }) => {
     <div className="flex flex-col items-center justify-center min-h-screen py-8">
       <h1 className="text-3xl font-bold text-gray-800 mb-6">Boggle Game</h1>
 
-      <div className="grid grid-cols-6 gap-2 mb-6">
+      <div className="grid grid-cols-6 gap-1 mb-6">
         {board.map((row, rowIndex) =>
           row.map((letter, colIndex) => (
             <div
               key={`${rowIndex}-${colIndex}`}
-              className="text-xl font-bold text-gray-900 p-4 w-12 h-12 flex items-center justify-center bg-white rounded-lg shadow-md border border-gray-300"
+              className="text-xl font-bold text-gray-900 p-4 w-10 h-10 flex items-center justify-center bg-white rounded-lg shadow-md border border-gray-300"
             >
               {letter}
             </div>
