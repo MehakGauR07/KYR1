@@ -439,7 +439,7 @@ const Form: React.FC = () => {
           {step > 1 && (
             <button
               onClick={handlePrevStep}
-              className="px-4 py-2 bg-gray-300 text-gray-900 rounded-md hover:bg-gray-400"
+              className="px-4 py-2 bg-gray-300 text-gray-900 rounded-md hover:bg-gray-400 " id='prevbutton'
             >
               Previous
             </button>

@@ -17,7 +17,7 @@ const ChatModal: React.FC<ChatModalProps> = ({ isOpen, onClose }) => {
           className="absolute top-4 right-4 text-gray-600 hover:text-gray-900"
           aria-label="Close chat"
         >
-          ✖️
+          ❌
         </button>
         <div className="flex flex-col h-full items-center justify-center">
           <Chat />
