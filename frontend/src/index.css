@@ -1,3 +1,93 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.dark {
+  @apply bg-black text-white;
+}
+
+
+
+.dark a:hover {
+  @apply text-white;
+}
+
+.dark button {
+  @apply bg-[] ;
+}
+
+.dark button:hover {
+  @apply bg-[#b51d48] text-white;
+}
+
+
+.dark input {
+  @apply bg-[#322f2e] text-white;
+}
+
+.dark textarea {
+  @apply bg-[#322f2e] text-white;
+}
+
+.dark select {
+  @apply bg-[#d42755] text-white;
+}
+
+.dark option {
+  @apply bg-[#d42755] text-white;
+}
+
+
+.dark #nodiv {
+  @apply bg-[#303239];
+}
+.dark #cn {
+  @apply bg-[#303239];
+}
+.dark #cn {
+  @apply bg-[#303239];
+}
+.dark .bg-stone-100 {
+  @apply bg-[#303239];
+}
+
+
+.dark .bg-white {
+  @apply bg-[#202c33];
+}
+.dark .bg-slate-100 {
+  @apply bg-[#2b3942];
+}
+
+.dark .text-gray-900 {
+  @apply text-white;
+}
+.dark .text-gray-800 {
+  @apply text-gray-300;
+}
+.dark .text-gray-700 {
+  @apply text-gray-300;
+}
+.dark .text-gray-600 {
+  @apply text-gray-300;
+}
+.dark .text-slate-600 {
+  @apply text-black;
+}
+
+.dark #prevbutton{
+  @apply bg-gray-600;
+}
+.dark .bg-gray-900{
+  @apply bg-gray-700;
+}
+
+
+.dark .shadow-md {
+  @apply shadow-[#322f2e];
+}
+
+
+.dark .text-gray-200 {
+  @apply text-[#484443];
+}

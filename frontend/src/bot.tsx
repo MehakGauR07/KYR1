@@ -17,8 +17,8 @@ const Chat = () => {
       const witResponseText = await sendMessageToWitAI(message);
 
       // Update the responses state with the user's message and Wit.ai's reply
-      setResponses([
-        ...responses,
+      setResponses((prevResponses) => [
+        ...prevResponses,
         { text: message, sender: 'user' },
         { text: witResponseText, sender: 'bot' } // Use the extracted text string from Wit.ai
       ]);
@@ -28,7 +28,10 @@ const Chat = () => {
     } catch (error) {
       console.error('Error:', error);
       // Optionally, display an error message in the chat
-      setResponses([...responses, { text: 'Sorry, something went wrong.', sender: 'bot' }]);
+      setResponses((prevResponses) => [
+        ...prevResponses,
+        { text: 'Sorry, something went wrong.', sender: 'bot' }
+      ]);
     } finally {
       setIsLoading(false); // Stop loading indicator
     }
@@ -57,23 +60,28 @@ const Chat = () => {
       <h2 className="text-center text-3xl font-semibold text-gray-800 mb-4">
         Welcome to Your Legal Assistant!
       </h2>
-      <div className="bg-white shadow-md rounded-lg p-8 h-[500px] flex flex-col">
+      <div className="bg-white shadow-md rounded-lg p-6 flex flex-col max-w-xl mx-auto h-[500px]">
         <button
           onClick={handleRefreshChat}
-          className="px-4 py-2 bg-[#d42755] text-white rounded-lg hover:bg-[#b51d48] transition duration-200 ease-in-out shadow-lg transform hover:scale-105"
+          className="px-4 py-2 bg-[#d42755] text-white rounded-lg hover:bg-[#b51d48] transition duration-200 ease-in-out shadow-lg transform hover:scale-105 mb-4"
           disabled={isLoading} // Disable refresh button while loading
         >
           {isLoading ? 'Loading...' : 'Refresh Chat'}
         </button>
         <div
           ref={chatContainerRef}
-          className="flex-1 overflow-y-auto p-4 bg-gray-100 border border-gray-300 rounded-lg max-h-[400px] mt-4"
+          className="flex-1 overflow-y-auto p-4 bg-gray-50 border border-gray-300 rounded-lg shadow-sm max-h-[400px]"
+          id='nodiv'
         >
           <div className="space-y-4">
             {responses.map((res, index) => (
               <div
                 key={index}
-                className={`p-3 rounded-lg ${res.sender === 'user' ? 'bg-blue-100 text-blue-800 self-end' : 'bg-gray-100 text-gray-800 self-start'}`}
+                className={`p-3 rounded-lg transition duration-200 ease-in-out ${
+                  res.sender === 'user' 
+                    ? 'bg-blue-100 text-blue-800 self-end' 
+                    : 'bg-stale-100 text-gray-900 self-start'
+                } shadow`}
               >
                 {res.text}
               </div>
@@ -89,7 +97,7 @@ const Chat = () => {
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             onKeyDown={handleKeyDown}
-            className="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#d42755]"
+            className="flex-1 p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#d42755] transition duration-200 ease-in-out"
             placeholder="Type a message..."
           />
           <button

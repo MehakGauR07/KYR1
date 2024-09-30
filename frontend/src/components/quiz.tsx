@@ -302,23 +302,23 @@ const QuizComponent: React.FC = () => {
     };
 
     return (
-        <div className="max-w-2xl mx-auto mt-10 p-5 bg-white shadow-lg rounded-lg">
-            <h1 className="text-2xl font-bold text-gray-800 mb-6">Quiz on Social Issues & Articles of the Indian Constitution</h1>
+        <div className="max-w-2xl mx-auto mt-10 p-5 bg-white shadow-lg rounded-lg border border-gray-200">
+            <h1 className="text-3xl font-bold text-[#d42755] mb-6 text-center">Quiz Yourself</h1>
 
             {currentQuestion < quizData.length ? (
                 <div>
-                    <h2 className="text-xl mb-4">{quizData[currentQuestion].question}</h2>
+                    <h2 className="text-xl mb-4 font-semibold">{quizData[currentQuestion].question}</h2>
                     <div className="grid gap-4">
                         {quizData[currentQuestion].options.map((option, index) => (
-                            <button
+                            <button 
                                 key={index}
                                 onClick={() => handleOptionClick(index)}
                                 className={`p-4 border rounded-lg w-full text-left transition duration-200 ${
                                     selectedOption === index
                                         ? index === quizData[currentQuestion].correct
                                             ? 'bg-green-500 text-white'
-                                            : 'bg-red-500 text-white'
-                                        : 'bg-gray-100 hover:bg-gray-200'
+                                            : 'bg-red-600 text-white'
+                                        : 'bg-gray-100 text-black hover:bg-gray-200'
                                 }`}
                                 disabled={showExplanation}
                             >
@@ -328,8 +328,8 @@ const QuizComponent: React.FC = () => {
                     </div>
 
                     {showExplanation && (
-                        <div className="mt-4">
-                            <p className="text-sm text-gray-600">{quizData[currentQuestion].explanation}</p>
+                        <div className="mt-4 p-4 border-t border-gray-300 bg-gray-50">
+                            <p className="text-sm text-slate-600">{quizData[currentQuestion].explanation}</p>
                             <button
                                 onClick={handleNextQuestion}
                                 className="mt-4 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
@@ -345,7 +345,7 @@ const QuizComponent: React.FC = () => {
                     <p className="text-lg">Your Score: {score} / {quizData.length}</p>
                     <button
                         onClick={() => setCurrentQuestion(0)}
-                        className="mt-4 bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+                        className="mt-4 bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300"
                     >
                         Retry Quiz
                     </button>

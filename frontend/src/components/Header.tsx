@@ -4,6 +4,7 @@ import logo from "../assets/logo.png";
 import SearchComponent from "./searchcomponenet";
 import DictionaryApp from "./DictionaryApp";
 import { AiOutlineMenu, AiOutlineClose } from "react-icons/ai"; // Hamburger and Close Icons
+import DarkModeToggle from "./DarkModeToggle"; // Import the DarkModeToggle component
 
 type HeaderProps = {
   showGetStarted?: boolean; // Optional prop to control button rendering
@@ -46,37 +47,32 @@ const Header: React.FC<HeaderProps> = ({ showGetStarted = true }) => {
   };
 
   return (
-    <header className="py-4 shadow-md">
+    <header className="py-4 shadow-md bg-stone-100">
       <div className="container mx-auto flex justify-between items-center px-4 lg:px-8">
         <div className="flex items-center">
           <Link to="/" className="flex items-center space-x-2">
             <img src={logo} className="h-12 w-auto" alt="Logo" />
-            <span className="text-3xl text-gray-900 font-bold tracking-tight">
-              KYR
-            </span>
+            <span className="text-3xl text-gray-900 font-bold tracking-tight">KYR</span>
           </Link>
         </div>
 
         {/* Hamburger icon for mobile */}
         <div className="lg:hidden">
           <button onClick={toggleMenu} className="text-gray-900">
-            {isMenuOpen ? (
-              <AiOutlineClose size={28} />
-            ) : (
-              <AiOutlineMenu size={28} />
-            )}
+            {isMenuOpen ? <AiOutlineClose size={28} /> : <AiOutlineMenu size={28} />}
           </button>
         </div>
 
         {/* Navigation links for larger screens */}
-        <div className="hidden lg:flex items-center space-x-4">
+        <div className="hidden lg:flex items-center space-x-6">
           <SearchComponent />
           <button
             onClick={handleOpenModal}
-            className="px-6 py-3 bg-[#d42755] text-xl text-white font-semibold rounded-lg shadow-md hover:bg-[#b51d48] transition duration-300"
+            className="px-6 py-3 bg-[#d42755] text-xl text-white font-semibold rounded-lg shadow-md hover:bg-[#b51d48] transition duration-300 flex items-center"
           >
             Dictionary
           </button>
+          <DarkModeToggle />
           {showGetStarted ? (
             <Link
               to="/get-started"
@@ -96,10 +92,8 @@ const Header: React.FC<HeaderProps> = ({ showGetStarted = true }) => {
 
         {/* Mobile menu */}
         {isMenuOpen && (
-          <div className="lg:hidden absolute top-16 left-0 w-full bg-white shadow-md z-50">
-            <div className="flex justify-center p-4">
-              {" "}
-              {/* Flex container to center the SearchComponent */}
+          <div className="lg:hidden absolute top-16 left-0 w-full bg-white shadow-md z-50 p-4 rounded-lg">
+            <div className="flex justify-center mb-4">
               <SearchComponent />
             </div>
             <button
@@ -123,6 +117,7 @@ const Header: React.FC<HeaderProps> = ({ showGetStarted = true }) => {
                 Home
               </Link>
             )}
+            <DarkModeToggle />
           </div>
         )}
       </div>
