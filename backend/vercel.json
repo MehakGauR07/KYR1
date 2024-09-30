@@ -1,16 +1,19 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "src/index.ts",
-        "use": "@vercel/node"
-      }
-    ],
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "src/index.ts"
-      }
-    ]
-  }
-  
+  "version": 2,
+  "builds": [
+    {
+      "src": "src/index.ts",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",   // API routes will be handled by your Node function
+      "dest": "/api/$1"
+    },
+    {
+      "src": "/(.*)",  // Handle all other routes with client-side routing
+      "dest": "/src/index.ts"
+    }
+  ]
+}
